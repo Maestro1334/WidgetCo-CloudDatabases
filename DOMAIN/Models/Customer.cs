@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class User : BaseModel
+    public class Customer : BaseModel
     {
         public string Email { get; set; }
         public string Password { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
-        public User()
-        {
-        }
+        public Customer() {}
 
-        public User(Guid id, string email, string password)
+        public Customer(Guid id, string email, string password, ICollection<Order> orders)
         {
             Id = id;
             Email = email;

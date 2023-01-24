@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models
 {
-    public abstract class BaseModel
+    public enum OrderStatus
     {
-        [Key]
-        public Guid Id { get; set; }
+        Unknown, Processing, Sent
     }
 }
