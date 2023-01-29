@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Models
+﻿namespace Domain.Models
 {
     public class Customer : BaseModel
     {
@@ -12,13 +6,21 @@ namespace Domain.Models
         public string Password { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
 
-        public Customer() {}
+        //public Customer() { }
 
-        public Customer(Guid id, string email, string password, ICollection<Order> orders)
-        {
-            Id = id;
-            Email = email;
-            Password = password;
-        }
+        //public Customer(string email, string password, ICollection<Order> orders)
+        //{
+        //    Email = email;
+        //    Password = password;
+        //    Orders = orders;
+        //}
+
+        //public Customer(Guid id, string email, string password, ICollection<Order> orders)
+        //{
+        //    Id = id;
+        //    Email = email;
+        //    Password = password;
+        //    Orders = orders;
+        //}
     }
 }

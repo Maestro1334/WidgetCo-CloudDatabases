@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Models
 {
@@ -12,21 +7,21 @@ namespace Domain.Models
         public Guid OrderId { get; set; }
         public Guid ProductId { get; set; }
 
-        [ForeignKey("OrderId")]
+        //[ForeignKey("OrderId")]
         public Order Order { get; set; }
 
-        [ForeignKey("ProductId")]
+        //[ForeignKey("ProductId")]
         public Product Product { get; set; }
 
         public int Quantity { get; set; }
 
-        public OrderProduct() { }
+        //public OrderProduct() { }
 
-        public OrderProduct(Guid orderId, Guid productId, int quantity) 
-        {
-            OrderId = orderId;
-            ProductId = productId;
-            Quantity = quantity;
-        }
+        //public OrderProduct(Guid orderId, Guid productId, int quantity) 
+        //{
+        //    OrderId = orderId;
+        //    ProductId = productId;
+        //    Quantity = quantity;
+        //}
     }
 }
