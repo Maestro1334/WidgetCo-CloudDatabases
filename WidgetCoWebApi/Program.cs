@@ -4,6 +4,7 @@ using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Service;
 using Service.Interfaces;
+using Azure.Storage.Blobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,8 +32,12 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
+builder.Services.AddScoped<IImageService, ImageService>();
+
 builder.Services.AddDbContext<StoreContext>(options =>
     options.UseSqlServer(configuration["SqlDatabaseConnectionString"]));
+
+
 
 var app = builder.Build();
 
