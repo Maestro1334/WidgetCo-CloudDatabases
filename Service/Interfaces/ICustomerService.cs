@@ -8,5 +8,5 @@ public interface ICustomerService
 {
     Task<ICollection<CustomerResponse>> GetCustomers();
     Task<CustomerResponse> GetCustomer(Guid customerId);
-    Task<Customer> AddCustomer(CustomerDTO customerDTO);
+    Task<ResponseDTO> AddCustomer(CustomerDTO customerDTO);
 }

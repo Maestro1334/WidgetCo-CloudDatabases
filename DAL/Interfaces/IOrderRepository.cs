@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    public interface ICustomerRepository
+    public interface IOrderRepository
     {
-        Task<ResponseDTO> AddCustomer(CustomerDTO customerDTO);
+        Task<ResponseDTO> AddOrder(OrderDTO orderDTO);
     }
 }

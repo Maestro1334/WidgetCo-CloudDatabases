@@ -1,12 +1,7 @@
 ﻿using DAL.Interfaces;
 using Domain.DTOs;
 using Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace DAL.Repositories
 {
@@ -18,14 +13,14 @@ namespace DAL.Repositories
             _storeContext = storeContext;
         }
 
-        public async Task<Customer> AddCustomer(CustomerDTO customerDTO)
+        public async Task<ResponseDTO> AddCustomer(CustomerDTO customerDTO)
         {
             Customer customer = new() { Id = Guid.NewGuid(), Email = customerDTO.Email, Password = customerDTO.Password };
 
             await _storeContext.Customers.AddAsync(customer);
             await _storeContext.SaveChangesAsync();
 
-            return customer;
+            return new ResponseDTO { Success = true, Message = JsonSerializer.Serialize(customer) };
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class Order : BaseModel
     {
-        public Customer Customer { get; set; }
+        public Guid CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
         public virtual ICollection<OrderProduct> Products { get; set; }
 

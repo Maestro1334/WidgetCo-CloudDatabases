@@ -15,7 +15,7 @@ public class CustomerService : ICustomerService
         _customerRepository = customerRepository;
     }
 
-    public async Task<Customer> AddCustomer(CustomerDTO customerDTO)
+    public async Task<ResponseDTO> AddCustomer(CustomerDTO customerDTO)
     {
         return await _customerRepository.AddCustomer(customerDTO);
     }

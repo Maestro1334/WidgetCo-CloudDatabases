@@ -1,5 +1,6 @@
 ﻿using Domain.DTOs;
 using Domain.Models;
+using Domain.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Service.Interfaces;
@@ -20,9 +21,16 @@ namespace WidgetCoWebApi.Controllers
         }
 
         [HttpPost(Name = "AddCustomer")]
-        public async Task<Customer> AddHouse([FromBody] CustomerDTO customerDTO)
+        public async Task<IActionResult> AddHouse([FromBody] CustomerDTO customerDTO)
         {
-            return await _customerService.AddCustomer(customerDTO);
+            ResponseDTO response = await _customerService.AddCustomer(customerDTO);
+
+            if (!response.Success)
+            {
+                return StatusCode(500, response);
+            }
+
+            return Ok(response);
         }
     }
 }
