@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "SERVICE\Service.csproj", "{D7450173-BC8F-4B2E-910C-3827CD61EA63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetCoWebApi", "WidgetCoWebApi\WidgetCoWebApi.csproj", "{B7E0C692-5ABF-4B77-AD90-3398848D85F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WidgetCoWebApi", "WidgetCoWebApi\WidgetCoWebApi.csproj", "{B7E0C692-5ABF-4B77-AD90-3398848D85F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderProcessor", "OrderProcessor\OrderProcessor.csproj", "{1B0FD490-AB27-4755-A03D-226A9B12BE82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B7E0C692-5ABF-4B77-AD90-3398848D85F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7E0C692-5ABF-4B77-AD90-3398848D85F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7E0C692-5ABF-4B77-AD90-3398848D85F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B0FD490-AB27-4755-A03D-226A9B12BE82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B0FD490-AB27-4755-A03D-226A9B12BE82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B0FD490-AB27-4755-A03D-226A9B12BE82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B0FD490-AB27-4755-A03D-226A9B12BE82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,6 @@
 ﻿using DAL.Interfaces;
 using Domain.DTOs;
+using Domain.Models;
 using Domain.Responses;
 using Service.Interfaces;
 using System;
@@ -32,6 +33,11 @@ namespace Service
         public Task<ICollection<OrderResponse>> GetOrders()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ResponseDTO> ProcessOrder(OrderResponse order)
+        {
+            return await _orderRepository.ProcessOrder(order);
         }
     }
 }

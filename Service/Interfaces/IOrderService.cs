@@ -13,5 +13,7 @@ namespace Service.Interfaces
         Task<ICollection<OrderResponse>> GetOrders();
         Task<OrderResponse> GetOrder(Guid orderId);
         Task<ResponseDTO> AddOrder(OrderDTO orderDTO);
+
+        Task<ResponseDTO> ProcessOrder(OrderResponse order);
     }
 }

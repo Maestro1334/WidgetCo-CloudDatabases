@@ -1,6 +1,7 @@
 ﻿using DAL.Interfaces;
 using Domain.DTOs;
 using Domain.Models;
+using Domain.Responses;
 using System.Text.Json;
 
 namespace DAL.Repositories
@@ -64,6 +65,19 @@ namespace DAL.Repositories
                 Total = totalPrice };
 
             await _storeContext.Orders.AddAsync(order);
+            await _storeContext.SaveChangesAsync();
+
+            return new ResponseDTO { Success = true, Message = JsonSerializer.Serialize(order) };
+        }
+
+        public async Task<ResponseDTO> ProcessOrder(OrderResponse order)
+        {
+            Order? orderToProcess = await _storeContext.Orders.FindAsync(order.Id);
+
+            if (orderToProcess == null)
+                return new ResponseDTO { Success = false, Message = $"Order with orderId {order.Id} not found." };
+
+            orderToProcess.Status = OrderStatus.Sent;
             await _storeContext.SaveChangesAsync();
 
             return new ResponseDTO { Success = true, Message = JsonSerializer.Serialize(order) };
