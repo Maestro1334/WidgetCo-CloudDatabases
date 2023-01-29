@@ -1,17 +1,24 @@
-﻿using Domain.Responses;
+﻿using DAL.Interfaces;
+using Domain.DTOs;
+using Domain.Models;
+using Domain.Responses;
 using Service.Interfaces;
 
 namespace Service;
 
 public class CustomerService : ICustomerService
 {
+    private readonly ICustomerRepository _customerRepository;
 
-    public CustomerService() { }
+    public CustomerService(ICustomerRepository customerRepository)
+    {
+        _customerRepository = customerRepository;
+    }
 
-    //public CustomerService()
-    //{
-    //    // add stuff
-    //}
+    public async Task<Customer> AddCustomer(CustomerDTO customerDTO)
+    {
+        return await _customerRepository.AddCustomer(customerDTO);
+    }
 
     public Task<CustomerResponse> GetCustomer(Guid customerId)
     {

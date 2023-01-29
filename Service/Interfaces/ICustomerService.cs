@@ -1,9 +1,12 @@
-﻿using Domain.Responses;
+﻿using Domain.DTOs;
+using Domain.Models;
+using Domain.Responses;
 
 namespace Service.Interfaces;
 
 public interface ICustomerService
 {
-    public Task<ICollection<CustomerResponse>> GetCustomers();
-    public Task<CustomerResponse> GetCustomer(Guid customerId);
+    Task<ICollection<CustomerResponse>> GetCustomers();
+    Task<CustomerResponse> GetCustomer(Guid customerId);
+    Task<Customer> AddCustomer(CustomerDTO customerDTO);
 }

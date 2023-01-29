@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
+    <ProjectReference Include="..\DOMAIN\Domain.csproj" />
     <ProjectReference Include="..\SERVICE\Service.csproj" />
   </ItemGroup>
 

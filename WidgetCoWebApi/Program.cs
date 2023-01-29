@@ -1,5 +1,9 @@
 using DAL;
+using DAL.Interfaces;
+using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Service;
+using Service.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 builder.Services.AddDbContext<StoreContext>(options =>
     options.UseSqlServer(configuration["SqlDatabaseConnectionString"]));

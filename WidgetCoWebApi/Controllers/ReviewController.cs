@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace WidgetCoWebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ReviewController : ControllerBase
     {
         private readonly ILogger _logger;
