@@ -10,7 +10,8 @@ using System;
 
 IHost host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
-    .ConfigureServices(services => {
+    .ConfigureServices(services =>
+    {
         string connectionString = Environment.GetEnvironmentVariable("SqlDatabaseConnectionString")!;
 
         services.AddDbContext<DbContext, StoreContext>(opts => opts.UseSqlServer(connectionString));

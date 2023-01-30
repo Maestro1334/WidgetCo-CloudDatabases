@@ -4,7 +4,6 @@ using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Service;
 using Service.Interfaces;
-using Azure.Storage.Blobs;
 
 var builder = WebApplication.CreateBuilder(args);
 

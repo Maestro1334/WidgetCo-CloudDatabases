@@ -1,4 +1,5 @@
 ﻿using Domain.DTOs;
+using Domain.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Service;
@@ -17,11 +18,13 @@ namespace WidgetCoWebApi.Controllers
     {
         private readonly ILogger _logger;
         private readonly IProductService _productService;
+        private readonly IImageService _imageService;
 
-        public ProductController(ILoggerFactory loggerFactory, IProductService productService)
+        public ProductController(ILoggerFactory loggerFactory, IProductService productService, IImageService imageService)
         {
             _logger = loggerFactory.CreateLogger<OrderController>();
             _productService = productService;
+            _imageService = imageService;
         }
 
         [HttpPost(Name = "AddProduct")]
@@ -35,6 +38,27 @@ namespace WidgetCoWebApi.Controllers
             }
 
             return Ok(response);
+        }
+
+        [HttpGet(Name = "GetProduct")]
+        public async Task<IActionResult> GetProduct(Guid productId)
+        {
+            ProductResponse product = await _productService.GetProduct(productId);
+
+            if (product == null)
+                return NotFound();
+
+            string imageUrl = string.Empty;
+            try
+            {
+                imageUrl = _imageService.GetUrl(product.Description.ToLower() + ".avif");
+            }
+            catch(Exception ex) { return StatusCode(500, ex); }
+            
+
+            product.ImageUrl= imageUrl;
+
+            return Ok(product);
         }
     }
 }

@@ -4,8 +4,8 @@ using Microsoft.Extensions.Logging;
 using Service.Interfaces;
 using Domain.DTOs;
 using Domain.Responses;
-using System.Text.Json;
 using Domain.Models;
+using Newtonsoft.Json;
 
 namespace OrderProcessor
 {
@@ -17,16 +17,16 @@ namespace OrderProcessor
         private readonly ILogger _logger;
         private readonly IOrderService _orderService;
 
-        public Controller(ILogger logger, IOrderService orderService)
+        public Controller(ILogger<Controller> logger, IOrderService orderService)
         {
             _logger = logger;
             _orderService = orderService;   
         }
 
         [Function("Function1")]
-        public void Run([QueueTrigger("orders", Connection = "")]string myQueueItem, ILogger log)
+        public void Run([QueueTrigger("orders", Connection = "")]string myQueueItem)
         {
-            log.LogInformation($"C# Queue trigger function processed: {myQueueItem}");
+            _logger.LogInformation($"C# Queue trigger function processed: {myQueueItem}");
         }
 
         [Function(nameof(AddOrder))]
@@ -36,7 +36,7 @@ namespace OrderProcessor
         {
             ResponseDTO response = await _orderService.AddOrder(orderToProcess);
 
-            Order order = JsonSerializer.Deserialize<Order>(response.Message);
+            Order order = JsonConvert.DeserializeObject<Order>(response.Message);
 
             return new OrderResponse() { Id = order.Id };
         }

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 namespace DAL.Repositories
@@ -40,7 +40,7 @@ namespace DAL.Repositories
             await _storeContext.Reviews.AddAsync(review);
             await _storeContext.SaveChangesAsync();
 
-            return new ResponseDTO { Success = true, Message = JsonSerializer.Serialize(review) };
+            return new ResponseDTO { Success = true, Message = JsonConvert.SerializeObject(review) };
         }
     }
 }

@@ -1,12 +1,9 @@
-﻿using DAL.Interfaces;
+﻿using Azure;
+using DAL.Interfaces;
 using Domain.DTOs;
 using Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+using Domain.Responses;
+using Newtonsoft.Json;
 
 namespace DAL.Repositories
 {
@@ -31,7 +28,21 @@ namespace DAL.Repositories
             await _storeContext.Products.AddAsync(product);
             await _storeContext.SaveChangesAsync();
 
-            return new ResponseDTO { Success = true, Message = JsonSerializer.Serialize(product) };
+            return new ResponseDTO { Success = true, Message = JsonConvert.SerializeObject(product) };
+        }
+
+        public async Task<ProductResponse> GetProduct(Guid id)
+        {
+            Product? product = await _storeContext.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                return new ProductResponse() { Name = "Not found" };
+            }
+            else
+            {
+                return new ProductResponse { Id = product.Id, Description = product.Description, Name = product.Name, Price = product.Price, ImageUrl = "" };
+            }
         }
     }
 }

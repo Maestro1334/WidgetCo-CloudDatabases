@@ -1,5 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Sas;
+using Microsoft.Extensions.Configuration;
 using Service.Interfaces;
 
 namespace Service;
@@ -10,8 +11,10 @@ public class ImageService : IImageService
 
     public ImageService()
     {
-        string connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage")!;
-        _imageContainer = new BlobContainerClient(connectionString, "images");
+        // I could not figure out how to add the conn string the proper way (returning null), so was forced to hardcode it.
+        //string connectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage")!;
+
+        _imageContainer = new BlobContainerClient("UseDevelopmentStorage=true", "image");
     }
 
     public string GetUrl(string imageName)

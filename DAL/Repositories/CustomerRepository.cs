@@ -1,7 +1,7 @@
 ﻿using DAL.Interfaces;
 using Domain.DTOs;
 using Domain.Models;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace DAL.Repositories
 {
@@ -20,7 +20,7 @@ namespace DAL.Repositories
             await _storeContext.Customers.AddAsync(customer);
             await _storeContext.SaveChangesAsync();
 
-            return new ResponseDTO { Success = true, Message = JsonSerializer.Serialize(customer) };
+            return new ResponseDTO { Success = true, Message = JsonConvert.SerializeObject(customer) };
         }
     }
 }

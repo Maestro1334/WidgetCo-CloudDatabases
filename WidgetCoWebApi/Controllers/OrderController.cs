@@ -1,12 +1,9 @@
-﻿using Domain.DTOs;
+﻿using Azure.Storage.Queues;
+using Domain.DTOs;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.Azure.Functions.Worker;
 using Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WidgetCoWebApi.Controllers
 {
@@ -14,6 +11,7 @@ namespace WidgetCoWebApi.Controllers
     [Route("api/[controller]")]
     public class OrderController : ControllerBase
     {
+        private const string QUEUE_TRIGGER = "orders";
         private readonly ILogger _logger;
         private readonly IOrderService _orderService;
 
@@ -23,17 +21,50 @@ namespace WidgetCoWebApi.Controllers
             _orderService = orderService;
         }
 
-        [HttpPost(Name = "AddOrder")]
-        public async Task<IActionResult> AddOrder([FromBody] OrderDTO orderDTO)
+        public struct AddOrderOut
         {
-            ResponseDTO response = await _orderService.AddOrder(orderDTO);
+            [QueueOutput(QUEUE_TRIGGER)]
+            public OrderDTO OrderDTO { get; set; }
+            public ResponseDTO Response { get; set; }
+        }
 
-            if (!response.Success)
+        [HttpPost(Name = "AddOrder")]
+        public async Task<AddOrderOut> AddOrder([FromBody] OrderDTO orderDTO)
+        {
+            var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", true, true)
+            .Build();
+
+            // Get the connection string from app settings
+            string connectionString = configuration["AzureWebJobsStorage"]!;
+
+            // Instantiate a QueueClient which will be used to create and manipulate the queue
+            QueueClient queueClient = new QueueClient(connectionString, QUEUE_TRIGGER, new QueueClientOptions
             {
-                return StatusCode(500, response);
+                // queue is expecting base64 encoding
+                MessageEncoding = QueueMessageEncoding.Base64
+            });
+
+            // Create the queue if it doesn't already exist
+            queueClient.CreateIfNotExists();
+
+            // Get order object in response
+            ResponseDTO response = await _orderService.CreateOrder(orderDTO);
+
+            if (queueClient.Exists())
+            {
+                // Send a message (with json object) to the queue
+                queueClient.SendMessage(response.Message);
             }
 
-            return Ok(response);
+            Console.WriteLine($"Inserted: {response.Message}");
+
+            return new AddOrderOut
+            {
+                OrderDTO = orderDTO,
+                Response = response
+            };
         }
     }
 }

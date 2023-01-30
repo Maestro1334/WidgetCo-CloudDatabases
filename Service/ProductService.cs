@@ -25,9 +25,9 @@ namespace Service
             return await _productRepository.AddProduct(productDTO);
         }
 
-        public Task<ProductResponse> GetProduct(Guid productId)
+        public async Task<ProductResponse> GetProduct(Guid productId)
         {
-            throw new NotImplementedException();
+            return await _productRepository.GetProduct(productId);
         }
 
         public Task<ICollection<ProductResponse>> GetProducts()

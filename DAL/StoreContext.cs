@@ -27,6 +27,8 @@ public class StoreContext : DbContext
             new { Id = Guid.NewGuid(), Email = "customer4@email.com", Password = "secret" }
         );
 
+        // image urls here are from the web. these images should be present in the blob container
+        // the blob container image url is returned with GetProduct endpoint (not the web one)
         modelBuilder.Entity<Product>().HasData(
             new { Id = Guid.NewGuid(), Name = "Product A", Price = 12.505, Description= "Watch", ImageUrl = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80" },
             new { Id = Guid.NewGuid(), Name = "Product B", Price = 52.50, Description = "Headphones", ImageUrl = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" },

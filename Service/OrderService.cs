@@ -25,6 +25,11 @@ namespace Service
             return await _orderRepository.AddOrder(orderDTO);
         }
 
+        public async Task<ResponseDTO> CreateOrder(OrderDTO orderDTO)
+        {
+            return await _orderRepository.CreateOrder(orderDTO);
+        }
+
         public Task<OrderResponse> GetOrder(Guid orderId)
         {
             throw new NotImplementedException();

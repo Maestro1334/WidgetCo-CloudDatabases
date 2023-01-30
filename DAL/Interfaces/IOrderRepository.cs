@@ -12,7 +12,7 @@ namespace DAL.Interfaces
     public interface IOrderRepository
     {
         Task<ResponseDTO> AddOrder(OrderDTO orderDTO);
-
+        Task<ResponseDTO> CreateOrder(OrderDTO orderDTO);
         Task<ResponseDTO> ProcessOrder(OrderResponse order);
     }
 }
